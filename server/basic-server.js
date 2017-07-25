@@ -1,6 +1,6 @@
 /* Import node's http module: */
 var http = require('http');
-var handleRequest = require('./request-handler');  
+var handleRequest = require('./request-handler');
 
 // Every server needs to listen on a port with a unique number. The
 // standard port for HTTP servers is port 80, but that port is
@@ -14,9 +14,9 @@ var port = 3000;
 // special address that always refers to localhost.
 var ip = '127.0.0.1';
 
-var routes = {
-  '/classes/messages': 'tbd'
-};
+// var routes = {
+//   '/classes/messages': 'tbd'
+// };
 
 // We use node's http module to create a server.
 //
@@ -44,3 +44,6 @@ module.exports.routes = routes;
 // possibility of serving more requests. To stop your server, hit
 // Ctrl-C on the command line.
 
+// if (request.url !== '/classes/messages') {
+//   statusCode = 404;
+// }

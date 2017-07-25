@@ -5,9 +5,9 @@ You should implement your request handler function in this file.
 requestHandler is already getting passed to http.createServer()
 in basic-server.js, but it won't work as is.
 
-You'll have to figure out a way to export this function from
 this file and include it in basic-server.js so that it actually works.
 
+You'll have to figure out a way to export this function from
 *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html.
 
 **************************************************************/
@@ -34,11 +34,11 @@ var messages = {results: [
     message: 'Do my bidding!'
   },
 ]};
-  
 
 
 
-var requestHandler = function(request, response) {  
+
+var requestHandler = function(request, response) {
   // Request and Response come from node's http module.
   //
   // They include information about both the incoming request, such as
@@ -69,14 +69,14 @@ var requestHandler = function(request, response) {
 
   console.log('request is 222:', request);
 
-  if (request.method === 'GET') {
+  if (request.method === 'GET' && request.url === '/classes/messages') {
     statusCode = 200;
     response.writeHead(statusCode, headers);
     response.end(JSON.stringify(messages));
   }
 
-  
-  if (request.method === 'POST') {
+
+  if (request.method === 'POST' && request.url === '/classes/messages') {
     let body = [];
     request.on('data', (chunk) => {
       body.push(chunk);
@@ -89,6 +89,7 @@ var requestHandler = function(request, response) {
     response.writeHead(statusCode, headers);
     response.end();
   }
+  // To-Do Set Status Code when nonexisten file
 
   // .writeHead() writes to the request line and headers of the response,
   // which includes the status and all headers.
