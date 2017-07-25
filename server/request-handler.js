@@ -67,14 +67,28 @@ var requestHandler = function(request, response) {
   // other than plain text, like JSON or HTML.
   headers['Content-Type'] = 'application/JSON';
 
-  console.log('response is:', response);
+  console.log('request is 222:', request);
 
   if (request.method === 'GET') {
     statusCode = 200;
     response.writeHead(statusCode, headers);
     response.end(JSON.stringify(messages));
   }
+
   
+  if (request.method === 'POST') {
+    let body = [];
+    request.on('data', (chunk) => {
+      body.push(chunk);
+    }).on('end', () => {
+      body = Buffer.concat(body).toString();
+      messages.results.push(body);
+      // at this point, `body` has the entire request body stored in it as a string
+    });
+    statusCode = 201;
+    response.writeHead(statusCode, headers);
+    response.end();
+  }
 
   // .writeHead() writes to the request line and headers of the response,
   // which includes the status and all headers.
