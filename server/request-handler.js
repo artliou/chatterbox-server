@@ -12,7 +12,6 @@ this file and include it in basic-server.js so that it actually works.
 
 **************************************************************/
 
-
 // These headers will allow Cross-Origin Resource Sharing (CORS).
 // This code allows this server to talk to websites that
 // are on different domains, for instance, your chat client.
@@ -29,7 +28,17 @@ var defaultCorsHeaders = {
   'access-control-max-age': 10 // Seconds.
 };
 
-var requestHandler = function(request, response) {
+var messages = {results: [
+  {
+    username: 'Jono',
+    message: 'Do my bidding!'
+  },
+]};
+  
+
+
+
+var requestHandler = function(request, response) {  
   // Request and Response come from node's http module.
   //
   // They include information about both the incoming request, such as
@@ -56,7 +65,16 @@ var requestHandler = function(request, response) {
   //
   // You will need to change this if you are sending something
   // other than plain text, like JSON or HTML.
-  headers['Content-Type'] = 'text/plain';
+  headers['Content-Type'] = 'application/JSON';
+
+  console.log('response is:', response);
+
+  if (request.method === 'GET') {
+    statusCode = 200;
+    response.writeHead(statusCode, headers);
+    response.end(JSON.stringify(messages));
+  }
+  
 
   // .writeHead() writes to the request line and headers of the response,
   // which includes the status and all headers.

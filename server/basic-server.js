@@ -18,13 +18,6 @@ var routes = {
   '/classes/messages': 'tbd'
 };
 
-var messages = [
-    // {
-    //   username: 'Jono',
-    //   message: 'Do my bidding!'
-    // },
-];
-
 // We use node's http module to create a server.
 //
 // The function we pass to http.createServer will be used to handle all
@@ -35,6 +28,9 @@ var server = http.createServer(handleRequest.requestHandler);
 console.log('Listening on http://' + ip + ':' + port);
 server.listen(port, ip);
 
+
+// module.exports.messages = messages;
+module.exports.routes = routes;
 // To start this server, run:
 //
 //   node basic-server.js
